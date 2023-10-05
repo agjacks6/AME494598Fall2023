@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+<script src='asyncReq.js'></script>
+<script>
+function updateData()
+{
+  loadURL("./getData", function(data){
+    document.getElementById("results").innerHTML = data;
+  })
+}
+function start()
+{
+  setInterval("updateData()", 300);
+}
+</script>
+</head>
+<body onload='start()'>
+<h1> Temperature/Humidity</h1>
+<div id='results'> </div>
+
+<div id="turorial">
+  <h1>Tutorial</h1>
+  
+  <h2>Step 1:</h2>
+    <h3>Setting Up</h3>
+    <img src="1.PNG">
+      <p>Start by creating an EC2 server on AWS by pressing the EC2 button on the home screen. 
+      Then, go to the Instances (running) page and select the orange "Launch Instances" button in the right corner of the page.</p>
+
+   <h2>Step 2:</h2>
+        <h3>Start the Instance</h3>
+          <p>Once you press the "Launch Instances" button, you will open a page with several different settings for your page.</p>
+          <img src="2.PNG">
+          <p>Here, you should change the OS to <b>Ubuntu</b>. Select <b>Unbuntu Server 20.04</b> as the Amazon Machine Image.</p>
+          <img src="3.PNG">
+          <p>Under Key pair, you are able to add a key pair to your server. However, for the sake of this assignment, 
+            select <b>"Proceed without a key pair"</b>. 
+          <img src="04.PNG">
+          <p>Under configuration, change <b>1x 8 to 1x 28</b>.</p>
+            <img src="05.PNG">
+           <p>From there you can select the <b>"Launch Instance"</b> button on the bottom of the page. </p>
+
+            <h2>Step 3:</h2>
+            <h3>Security Codes</h3>
+            <img src="06.PNG">
+              <p>After the instance is launched, go to the Instances page and select your newly created Instance. Scroll down and select the Security button.
+              From there, select the <b>launch wizard</b> button under the <b>Security groups</b> heading. Go into the inbound rules section and press 
+              <b>Edit Inbound Rules</b>. Add two new rules by pressing the <b>add rule</b> button and change the port range on both. One should be <b>8080</b>, and the 
+              other should be <b>1234</b>. Both rules should be set to the source <b>Anywhere-IPV4</b>. From there you can press <b>Save Rules</b> and return to the 
+              Instance page. 
+              </p>
+
+            <h2>Step 4:</h2>
+            <h3>HTTP Set Up</h3>
+              <p>After setting up your security codes, you can go to your instance summary and select the <b>connect</b> button. From there, you will open your Instance
+                 and can now write commands into it directly.</p>
+                <ul>Here are the list of commands to put in to set up your HTTP server prior to cloning your GitHub Repo, as well as the results for each.
+                  <img src="4.PNG">
+                  <li><b>Mongo DB:</b> curl -s https://gist.githubusercontent.com/tejaswigowda/f289e9bff13d152876e8d4b3281142f8/raw/df37df2e16a3166e686357a045751a7c18bbeebe/installNodeMongoUbuntu16.04.sh | bash</li>
+                  <img src="5.PNG">
+                  <li>npm install</li>
+                  <img src="6.PNG">
+                  <li>npm install latest</li>
+                  <img src="7.PNG">
+                  <li>sudo npm install -g n</li>
+                  <img src="8.PNG">
+                  <li>sudo npm install -g http-server</li>
+                </ul>
+                <p>From here, you can now clone your GitHub repo by writing <b>git clone</b> and then the link</p>
+
+                <h2>Step 5:</h2>
+                <h3>Starting the Server</h3>
+                  <img src="9.PNG">
+                  <p>After cloning your repo, use the <b>ls</b> and <b>cd</b> commands to navigate to your <b>server.js</b> file.</p>
+                  <img src="10.PNG"> 
+                  <p>Once you reach the js file's location, you can write <b>node server.js</b> to start running the server.</p>
+                  <img src="11.PNG" width="700px">
+                  <p>To view your server, you can write the public ip with <b>:8080</b> to view your webpage.</p> 
+                
+                    <h2>Step 6:</h2>
+                    <h3>Arduino code</h3>
+                      <p>Now, to make the watch work, you'll open the <b>DHT11Default</b> in Arduino. Before uploading the file onto the watch, make sure that
+                        the board is set up to TTGO T-Watch and that your port is correctly connected to the watch. Prior to running the code, also make sure that
+                        the watch is connected to the computer via a USB cord and has the temperature sensor connected to it. The sensor has a blue light that will
+                        light up when connected.</p>
+                        <img src="12.PNG">
+                        <p>Once the watch and ports are fully set up, you can go into the code and change the hotspot name and password to the one that your hotspot is set up with.
+                        You'll then want to change the URL to your public IP address.</p> 
+                        <img src="14.PNG">
+                        <p>Make sure to change your pin to 25.</p>
+                        <p>You can now finally upload your code onto the watch, and you should get this result on the physical
+                        watch and on the webpage:</p>
+                          <img src="15.PNG" width="500px"> &nbsp;
+                          <img src="16.jpg" width="500px">
+                        
+
+
+</div>
+
+</body>
+</html>
