@@ -8,11 +8,11 @@ TTGOClass *ttgo;
 #include <HTTPClient.h>
 
 
-const char* ssid = "Jessipa";
+const char* ssid = "Babyjail";
 const char* password = "12345678";
 
 //Your Domain name with URL path or IP address with path
-const char* serverName = "http://35.174.109.52:8080/sendData";
+const char* serverName = "http://34.224.166.197:1234/setValue";
 
 // the following variables are unsigned longs because the time, measured in
 // milliseconds, will quickly become a bigger number than can be stored in an int.
@@ -28,7 +28,7 @@ String response;
 //      VCC: 5V or 3V
 //      GND: GND
 //      DATA: 21 or 25
-int pinDHT11 = 25;
+int pinDHT11 = 21;
 SimpleDHT11 dht11(pinDHT11);
 
 
@@ -71,9 +71,13 @@ void setup() {
     
       WiFi.begin(ssid, password);
   Serial.println("Connecting");
+  unsigned long delaymillis = millis();
   while(WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+    if(millis() < delaymillis + 500){
+
+    } else {
+      Serial.print(".");
+    }
   }
   Serial.println("");
   Serial.print("Connected to WiFi network with IP Address: ");
@@ -86,21 +90,24 @@ void setup() {
 }
 
 void loop() {
-  // start working...
+  if(millis() < + 5000){
+    //donothing
+  } else
+  {
+    lastMillis = millis();
+
   Serial.println("=================================");
   Serial.println("Sample DHT11...");
- 
 
   // read without samples.
-  byte temperature = 0;
-  byte humidity = 0;
-  int err = SimpleDHTErrSuccess;
-  if ((err = dht11.read(&temperature, &humidity, NULL)) != SimpleDHTErrSuccess) {
-    Serial.print("Read DHT11 failed, err="); Serial.println(err); delay(1000);
-    return;
-  }
-
-  Serial.print("Sample OK: ");
+    byte temperature = 0;
+    byte humidity = 0;
+    int err = SimpleDHTErrSuccess;
+    if ((err = dht11.read(&temperature, &humidity, NULL)) != SimpleDHTErrSuccess) {
+      Serial.print("Read DHT11 failed, err="); Serial.println(err); delay(1000);
+      return;
+    }
+     Serial.print("Sample OK: ");
   Serial.print(String((float)temperature) + "* C, ");
   Serial.println(String((float)humidity) + "% H");
 
@@ -113,9 +120,8 @@ void loop() {
       Serial.println(url);       
       response = httpGETRequest(url.c_str());
       Serial.println(response);
-
-
+  }
 
   // DHT11 sampling rate is 1HZ.
-  delay(6500);
+  //delay(5000);
 }
