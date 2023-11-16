@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Eight Ball</title>
+    <script>
+        function getRandomAnswer() {
+            const answers = [
+                "Yes",
+                "No",
+                "Maybe",
+                "Ask again later",
+                "Cannot predict now",
+                "Don't count on it",
+                "Most likely",
+                "Outlook not so good"
+            ];
+
+            const randomIndex = Math.floor(Math.random() * answers.length);
+            return answers[randomIndex];
+        }
+
+        function updateWatch() {
+            const answer = getRandomAnswer();
+            // Assuming your ESP32 watch has an endpoint to receive the answer
+            // Replace 'your-esp32-ip' and 'your-esp32-port' with the actual IP address and port of your ESP32 watch
+            const esp32Endpoint = `http://your-esp32-ip:your-esp32-port/update?answer=${encodeURIComponent(answer)}`;
+
+            fetch(esp32Endpoint)
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error updating watch:', error));
+        }
+    </script>
+</head>
+<body>
+    <h1>Magic Eight Ball</h1>
+    <p id="answer">Answer: <span id="displayAnswer"></span></p>
+    <button onclick="updateWatch()">Ask the Eight Ball</button>
+</body>
+</html>
